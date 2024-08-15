@@ -46,7 +46,7 @@ echo "OpenCV directory: $OPENCV_DIR"
 echo "Build configuration: $CONFIG"
 
 OUTPUT_DIR="output"
-PACKAGE_DIR="$OUTPUT_DIR/libmediapipe-$VERSION-aarch64-macos"
+PACKAGE_DIR="$OUTPUT_DIR/libmediapipe"
 DATA_DIR="$OUTPUT_DIR/data"
 
 echo "--------------------------------"
