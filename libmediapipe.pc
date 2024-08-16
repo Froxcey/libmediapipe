@@ -8,6 +8,6 @@ includedir=${prefix}/include
 Name: LibMediapipe
 Description: C API for Google's MediaPipe framework
 Version: 0.8.11
-Libs: -L${exec_prefix}/lib
+Libs: -L${exec_prefix}/lib -lmediapipe
 Libs.private:
 Cflags: -I${includedir}
