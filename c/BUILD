@@ -7,10 +7,23 @@ cc_binary(
     srcs = ["mediapipe.cpp", "mediapipe.h"],
     defines = ["MEDIAPIPE_EXPORT"],
     data = [
+        "//mediapipe/modules/face_detection:face_detection_full_range.tflite",
+        "//mediapipe/modules/face_detection:face_detection_full_range_sparse.tflite",
         "//mediapipe/modules/face_detection:face_detection_short_range.tflite",
+        "//mediapipe/modules/face_landmark:face_landmark.tflite",
         "//mediapipe/modules/face_landmark:face_landmark_with_attention.tflite",
         "//mediapipe/modules/hand_landmark:hand_landmark_full.tflite",
+        "//mediapipe/modules/hand_landmark:hand_landmark_lite.tflite",
+        "//mediapipe/modules/holistic_landmark:hand_recrop.tflite",
+        "//mediapipe/modules/iris_landmark:iris_landmark.tflite",
         "//mediapipe/modules/palm_detection:palm_detection_full.tflite",
+        "//mediapipe/modules/palm_detection:palm_detection_lite.tflite",
+        "//mediapipe/modules/pose_detection:pose_detection.tflite",
+        "//mediapipe/modules/pose_landmark:pose_landmark_full.tflite",
+        "//mediapipe/modules/pose_landmark:pose_landmark_heavy.tflite",
+        "//mediapipe/modules/pose_landmark:pose_landmark_lite.tflite",
+        "//mediapipe/modules/selfie_segmentation:selfie_segmentation.tflite",
+        "//mediapipe/modules/selfie_segmentation:selfie_segmentation_landscape.tflite",
     ],
     deps = [
         "//mediapipe/framework:calculator_framework",
@@ -24,9 +37,14 @@ cc_binary(
         "//mediapipe/framework/port:status",
         "@com_google_absl//absl/flags:flag",
         "@com_google_absl//absl/flags:parse",
-        
+
         "//mediapipe/graphs/face_mesh:desktop_live_calculators",
+
+        "//mediapipe/modules/face_landmark:face_landmark_cpu",
         "//mediapipe/modules/hand_landmark:hand_landmark_tracking_cpu",
+        "//mediapipe/modules/hand_landmark:hand_landmark_cpu",
+        "//mediapipe/modules/pose_landmark:pose_landmark_cpu",
+        "//mediapipe/modules/holistic_landmark:holistic_landmark_cpu",
     ],
     linkshared = 1,
 )

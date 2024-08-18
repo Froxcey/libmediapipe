@@ -90,6 +90,30 @@ static mp_multi_face_landmark_list* get_multi_face_landmarks(mp_packet* packet) 
     };
 }
 
+template<typename List, typename Landmark>
+static mp_landmark_list* get_landmarks(mp_packet* packet) {
+    // Get the single List object from the packet
+    const auto& mp_list = packet->packet.template Get<List>();
+
+    // Create an array of mp_landmark with the size of landmarks in the List
+    auto* list = new mp_landmark[mp_list.landmark_size()];
+
+    for (int j = 0; j < mp_list.landmark_size(); j++) {
+        const Landmark& mp_landmark = mp_list.landmark(j);
+        list[j] = {
+            mp_landmark.x(),
+            mp_landmark.y(),
+            mp_landmark.z()
+        };
+    }
+
+    // Return a new mp_landmark_list containing the landmarks
+    return new mp_landmark_list {
+        list,
+        (int) mp_list.landmark_size()
+    };
+}
+
 template<typename Rect>
 static mp_rect_list* get_rects(mp_packet* packet) {
     const auto& mp_data = packet->packet.template Get<std::vector<Rect>>();
@@ -189,7 +213,7 @@ MEDIAPIPE_API mp_instance* mp_create_instance(mp_instance_builder* builder) {
     std::string str;
     google::protobuf::util::MessageToJsonString(canonical_config, &str, json_options);
     std::cout << str << std::endl;
-    
+
     */
 
     auto* instance = new mp_instance;
@@ -355,8 +379,16 @@ MEDIAPIPE_API mp_multi_face_landmark_list* mp_get_multi_face_landmarks(mp_packet
     return get_multi_face_landmarks<mediapipe::LandmarkList, mediapipe::Landmark>(packet);
 }
 
+MEDIAPIPE_API mp_landmark_list* mp_get_landmarks(mp_packet* packet) {
+    return get_landmarks<mediapipe::LandmarkList, mediapipe::Landmark>(packet);
+}
+
 MEDIAPIPE_API mp_multi_face_landmark_list* mp_get_norm_multi_face_landmarks(mp_packet* packet) {
     return get_multi_face_landmarks<mediapipe::NormalizedLandmarkList, mediapipe::NormalizedLandmark>(packet);
+}
+
+MEDIAPIPE_API mp_landmark_list* mp_get_norm_landmarks(mp_packet* packet) {
+    return get_landmarks<mediapipe::NormalizedLandmarkList, mediapipe::NormalizedLandmark>(packet);
 }
 
 MEDIAPIPE_API void mp_destroy_multi_face_landmarks(mp_multi_face_landmark_list* multi_face_landmarks) {
@@ -366,6 +398,11 @@ MEDIAPIPE_API void mp_destroy_multi_face_landmarks(mp_multi_face_landmark_list* 
 
     delete[] multi_face_landmarks->elements;
     delete multi_face_landmarks;
+}
+
+MEDIAPIPE_API void mp_destroy_landmarks(mp_landmark_list* landmarks) {
+    delete[] landmarks->elements;
+    delete landmarks;
 }
 
 MEDIAPIPE_API mp_rect_list* mp_get_rects(mp_packet* packet) {
