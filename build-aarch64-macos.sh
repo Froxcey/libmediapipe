@@ -101,6 +101,7 @@ LINE=$(($LINE + 5))
 sed -i '' ""$LINE"s;\"/usr/local\";\"$OPENCV_DIR\";" WORKSPACE
 
 cp ../patches/opencv_macos.BUILD third_party
+cp ../patches/pose_landmark_filtering.pbtxt mediapipe/modules/pose_landmark
 
 echo "Done"
 
