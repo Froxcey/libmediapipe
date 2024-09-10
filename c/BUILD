@@ -41,10 +41,15 @@ cc_binary(
         "//mediapipe/graphs/face_mesh:desktop_live_calculators",
 
         "//mediapipe/modules/face_landmark:face_landmark_cpu",
+        "//mediapipe/modules/face_landmark:face_landmark_gpu",
         "//mediapipe/modules/hand_landmark:hand_landmark_tracking_cpu",
+        "//mediapipe/modules/hand_landmark:hand_landmark_tracking_gpu",
         "//mediapipe/modules/hand_landmark:hand_landmark_cpu",
+        "//mediapipe/modules/hand_landmark:hand_landmark_gpu",
         "//mediapipe/modules/pose_landmark:pose_landmark_cpu",
+        "//mediapipe/modules/pose_landmark:pose_landmark_gpu",
         "//mediapipe/modules/holistic_landmark:holistic_landmark_cpu",
+        "//mediapipe/modules/holistic_landmark:holistic_landmark_gpu",
     ],
     linkshared = 1,
 )

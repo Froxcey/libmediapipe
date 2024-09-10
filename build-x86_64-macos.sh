@@ -3,7 +3,7 @@
 set -e
 shopt -s nullglob
 
-VERSION="v0.10.14"
+VERSION="v0.10.15"
 OPENCV_DIR=""
 CONFIG="debug"
 
