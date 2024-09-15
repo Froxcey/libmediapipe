@@ -100,8 +100,11 @@ LINE=$(grep -n macos_opencv WORKSPACE | cut -d : -f1)
 LINE=$(($LINE + 5))
 sed -i '' ""$LINE"s;\"/usr/local\";\"$OPENCV_DIR\";" WORKSPACE
 
-cp ../patches/opencv_macos.BUILD third_party
-cp ../patches/pose_landmark_filtering.pbtxt mediapipe/modules/pose_landmark
+patch -u -N third_party/opencv_macos.BUILD -i ../patches/opencv_macos.BUILD.patch
+patch -u -N mediapipe/modules/pose_landmark/pose_landmark_filtering.pbtxt -i ../patches/pose_landmark_filtering.pbtxt.patch
+patch -u -N mediapipe/gpu/gpu_buffer_format.h -i ../patches/gpu_buffer_format.h.patch
+patch -u -N mediapipe/modules/holistic_landmark/holistic_landmark_gpu.pbtxt -i ../patches/holistic_landmark_gpu.pbtxt.patch
+patch -u -N mediapipe/modules/holistic_landmark/BUILD -i ../patches/holistic_landmark.BUILD.patch
 
 echo "Done"
 
@@ -127,7 +130,7 @@ fi
 
 bazel build -c "$BAZEL_CONFIG" \
 	--action_env PYTHON_BIN_PATH="$PYTHON_BIN_PATH" \
-	--define MEDIAPIPE_DISABLE_GPU=1 \
+	--define MEDIAPIPE_DISABLE_GPU=0 \
 	mediapipe/c:mediapipe
 
 cd ..

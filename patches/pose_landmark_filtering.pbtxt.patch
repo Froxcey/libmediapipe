@@ -1,0 +1,19 @@
+--- mediapipe/mediapipe/modules/pose_landmark/pose_landmark_filtering.pbtxt	2024-09-11 22:14:04
++++ patches/pose_landmark_filtering.pbtxt	2024-08-22 18:28:36
+@@ -115,13 +115,13 @@
+             one_euro_filter {
+               # Min cutoff 0.1 results into ~0.01 alpha in landmark EMA filter
+               # when landmark is static.
+-              min_cutoff: 0.05
++              min_cutoff: 0.01
+               # Beta 80.0 in combintation with min_cutoff 0.05 results into
+               # ~0.94 alpha in landmark EMA filter when landmark is moving fast.
+-              beta: 80.0
++              beta: 1000000.0
+               # Derivative cutoff 1.0 results into ~0.17 alpha in landmark
+               # velocity EMA filter.
+-              derivate_cutoff: 1.0
++              derivate_cutoff: 5.0
+             }
+           }
+         }

@@ -1,0 +1,10 @@
+--- mediapipe/mediapipe/modules/holistic_landmark/BUILD	2024-09-14 00:10:04
++++ patches/holistic_landmark.BUILD	2024-09-14 00:26:13
+@@ -252,6 +252,7 @@
+         "//mediapipe/calculators/core:flow_limiter_calculator",
+         "//mediapipe/calculators/image:image_transformation_calculator",
+         "//mediapipe/modules/pose_landmark:pose_landmark_gpu",
++        "//mediapipe/gpu:image_frame_to_gpu_buffer_calculator",
+     ],
+ )
+ 
